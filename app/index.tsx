@@ -3,24 +3,27 @@ import { router } from 'expo-router'
 import { routingQueue } from 'expo-router/build/global-state/routing'
 
 export default function Index() {
-    <View style={styles.container}>
-        <TouchableOpacity onPress={()=>router.push('../listaCorte')}>
-            <Image 
-                style={styles.imagem}
-                source={require('../assets/images/barbearia-logo.jpg')}/>
-        </TouchableOpacity>
-    </View>
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity onPress={()=>router.push('../listaCortes')}>
+                <Image 
+                    style={styles.imagem}
+                    source={require('@/assets/images/barbearia-logo.jpg')}/>
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     container : {
-        flex 1,
+        flex: 1,
         justifyContent: "center",
         alignItems: "center"
     },
     imagem: {
         width: 500,
-        height: 150,
+        height: 500,
         borderRadius:20
     },
 })
