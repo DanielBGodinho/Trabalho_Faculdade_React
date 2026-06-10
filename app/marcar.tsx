@@ -22,6 +22,10 @@ export default function marcar() {
     router.replace('/'); 
   };
 
+  console.log('horas:', horas);
+  console.log('minutos:', minutes);
+  console.log('Renderizando marcar');
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -33,13 +37,13 @@ export default function marcar() {
         
         <View style={styles.pickerContainer}>
           <Picker selectedValue={hora} onValueChange={setHora} style={styles.picker}>
-            {horas.map(h => <Picker.Item key={h} label={h} value={h} />)}
+            {horas?.map(h => ( <Picker.Item key={h} label={h} value={h} />))}
           </Picker>
 
           <Text style={styles.separator}>:</Text>
 
           <Picker selectedValue={minuto} onValueChange={setMinuto} style={styles.picker}>
-            {minutes.map(m => <Picker.Item key={m} label={m} value={m} />)}
+            {minutes?.map(m => ( <Picker.Item key={m} label={m} value={m} />))}
           </Picker>
         </View>
 

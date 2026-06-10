@@ -1,12 +1,16 @@
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { router } from 'expo-router'
-import { routingQueue } from 'expo-router/build/global-state/routing'
+import { router } from 'expo-router';
 
 export default function Index() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={()=>router.push('../listaCortes')}>
+            <TouchableOpacity onPress={()=>router.push('/listaCortes')}>
+                <Image 
+                    style={styles.imagem}
+                    source={require('@/assets/images/barbearia-logo.jpg')}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>router.push('/avaliar')}>
                 <Image 
                     style={styles.imagem}
                     source={require('@/assets/images/barbearia-logo.jpg')}/>
