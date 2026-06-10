@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useLocalSearchParams, router } from "expo-router";
-import { cortes } from '@/data/arrayCorte'; // Importando seus dados para filtrar
+import { cortes } from '@/data/arrayCorte';
 
 export default function marcar() {
   const { idCorte } = useLocalSearchParams<{ idCorte: string }>();
@@ -21,10 +21,6 @@ export default function marcar() {
     alert(`Agendado: ${corteSelecionado?.titulo} às ${hora}:${minuto}`);
     router.replace('/'); 
   };
-
-  console.log('horas:', horas);
-  console.log('minutos:', minutes);
-  console.log('Renderizando marcar');
 
   return (
     <View style={styles.container}>

@@ -1,33 +1,37 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { router, useLocalSearchParams } from 'expo-router'
-import { cortes } from '@/data/arrayCorte'
+import { useLocalSearchParams, router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { getProdutos } from '@/services/produtoService';
+import { Produto } from '@/types/prodType';
 
-export default function Id() {
-    const {id} = useLocalSearchParams<{id:string}>()
-    const produto = cortes.find((p)=>p.id === Number(id))
-    if(!produto) return <Text>Não Existe esse Produto</Text>
+export default function DetalhesProduto() {
+  const { id } = useLocalSearchParams();
+  const [produto, setProduto] = useState<Produto | null>(null);
+
+  useEffect(() => {
+    getProdutos().then((data: Produto[]) => {
+      const encontrado = data.find(p => p.id === id);
+      setProduto(encontrado || null);
+    });
+  }, [id]);
+
+  if (!produto) return <View style={styles.container}><Text>Carregando...</Text></View>;
+
     return (
         <View style={styles.container}>
-            <Image style={styles.imagem} source={produto.imagem}/>
+            <Image style={styles.imagem} source={{ uri : produto.imagem}}/>
             <View style={styles.info}>
-                <Text style={styles.nome}>{produto.titulo}</Text>
+                <Text style={styles.nome}>{produto.nome}</Text>
                 <Text style={styles.preco}>{produto.preco}</Text>
                 <Text style={styles.descricao}>{produto.descricao}</Text>
 
                 <TouchableOpacity style={styles.botaoComprar}
-                    onPress={() => router.push({
-                    pathname: '/marcar',
-                    params: { idCorte: id }
-                })}
+                    onPress={() => alert(`${produto.nome} comprado com sucesso! ✅`)}
                 >
-                    <Text style={styles.botaoComprarText}>Marcar horário</Text>
+                    <Text style={styles.botaoComprarText}>Comprar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.botaoVoltar}>
-                    <Text style={styles.botaoVoltarText}
-                    onPress={() => router.back()}
-                    >
-                        Voltar
-                    </Text>
+                <TouchableOpacity style={styles.botaoVoltar} onPress={() => router.back()}>
+                    <Text style={styles.botaoVoltarText}>Voltar</Text>
                 </TouchableOpacity>
             </View>
         </View>
